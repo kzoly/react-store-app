@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { observer } from 'mobx-react-lite';
+import React from 'react';
 import './App.css';
-import { User } from './User';
-import UserCard from './UserCard';
+import { UserList } from './UserList';
 import { UserService } from './UserService';
 
 // users endpoint:     https://60fd9bcc1fa9e90017c70f18.mockapi.io/api/users
@@ -9,48 +9,33 @@ import { UserService } from './UserService';
 
 function App() {
 
-  let userService= new UserService();
-  let [userList,setUserList]=useState<User[]>([]);
+  const userService= React.useMemo(()=> new UserService(),[]);
+  const {userNameSearch,
+    onSearch,
+    newAvatarUrl,
+    onAvatarChange,
+    newUserName,
+    onUserNameChange,
+    onAddUser,
+    userList,
+    search,
+    onDelete
 
-  useEffect(()=>{
-    userService.getListAPI().then(users=>{
-      setUserList(users)
-    });
-  },[]);
+  }=userService;
  
-
-
-  let [userNameSearch,setUserNameSearch] =useState('');
-  let onSearch=(event:React.ChangeEvent<HTMLInputElement>)=>{
-    //userNameSearch=event.target.value;
-    setUserNameSearch(event.target.value)
-  };
-  let search=(user:User):boolean =>{
-    return user.username.toLowerCase().includes(userNameSearch.trim().toLowerCase());
-  }
     return (
     <div>
-        <input value={userNameSearch} onChange={onSearch} />
-
-        <div className='grid-container'>
-
-          {/* {
-            userList.map(user=>{
-              return(
-                <UserCard  user={user} key={user.userName}/>
-            );
-            })
-          } */}
-           {
-            userList.map( user=> ( search(user) && <UserCard  user={user} key={user.username}/>  ) )
-          }
-            
-
-            
+        <input placeholder='Search..' value={userNameSearch} onChange={onSearch} />
+        <div>
+        <input placeholder='Avatar Url' value={newAvatarUrl} onChange={onAvatarChange} />
+        <input placeholder='User Name' value={newUserName}  onChange={onUserNameChange} />
+        <button onClick={onAddUser}>Add</button>
         </div>
+        
+        <UserList userList={userList} onDelete={ onDelete} search={search} />
 
     </div>
   );
 }
 
-export default App;
+export default observer(App);
