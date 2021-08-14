@@ -1,12 +1,11 @@
-import { makeAutoObservable } from "mobx";
+import {  makeObservable } from "mobx";
+import { BaseService } from "./BaseService";
 import { User } from "./User";
 
-export class UserService{
+export class UserService extends BaseService{
+  endpoint:string='https://60fd9bcc1fa9e90017c70f18.mockapi.io/api/users';
 
-    userList:User[]=[];
-    setUserList(userList:User[]){this.userList=userList;}
-    // a fenti 2 sor megfeleloje
-    // let [userList,setUserList]=useState<User[]>([]);
+   
  
     userNameSearch:string='';
     setUserNameSearch(userNameSearch:string) {this.userNameSearch=userNameSearch;}
@@ -45,77 +44,18 @@ export class UserService{
         this.create(newItem);
   }
     
-    getList=async():Promise<User[]>=>{
-        const result=await fetch('https://60fd9bcc1fa9e90017c70f18.mockapi.io/api/users');
-        const users=await result.json();
-        return users
-    }
-    //  getList =():User[] =>
-    // {
-    //     return [
-    //         {
-    //           avatar:'https://cdn.fakercloud.com/avatars/guiiipontes_128.jpg',
-    //           username:'Raoul17'
-    //         }
-    //         ,{
-    //           avatar:'https://cdn.fakercloud.com/avatars/lu4sh1i_128.jpg',
-    //           username:'Delilah57'
-    //         },{
-    //           avatar:'https://cdn.fakercloud.com/avatars/boxmodel_128.jpg',
-    //           username:'Jony'
-    //         },{
-    //           avatar:'https://cdn.fakercloud.com/avatars/g3d_128.jpg',
-    //           username:'Garnet83'
-    //         },{
-    //           avatar:'https://cdn.fakercloud.com/avatars/mikemai2awesome_128.jpg',
-    //           username:'Ruth.Robel12'
-    //         },
-    //       ];
-    // }
-
-    create=async(data:User):Promise<User[]>=>{
-       try{
-            const result=await fetch('https://60fd9bcc1fa9e90017c70f18.mockapi.io/api/users',{
-                method:'POST', 
-                headers: { 'Content-Type': 'application/json'  },
-                body: JSON.stringify(data),
-            });
-            const user=await result.json();
-            this.setUserList([user,...this.userList]);
-            this.setUserName('');
-            this.setUserAvatar('');
-            return user
-        }catch(err)
-        {
-            console.error(err);
-        }
-    }
-
-    onDelete=async(id:string):Promise<void>=>{
-        try{
-             const result=await fetch(`https://60fd9bcc1fa9e90017c70f18.mockapi.io/api/users/${id}`,{
-                 method:'DELETE', 
-                 
-             });
-             await result.json();
-             this.setUserList(this.userList.filter(item=>item.id!==id));
-             
-         }catch(err)
-         {
-             console.error(err);
-         }
-     }
+   
 
     constructor() {
-
-        makeAutoObservable(this);
+        super();
+        makeObservable(this, { } );
 
         //   useEffect(()=>{
         //     userService.getListAPI().then(users=>{
         //       setUserList(users)
         //     });
         //   },[]);
-        this.getList().then(users=> this.setUserList(users) );
+        this.getList().then(users=> this.setItems(users) );
 
     }
 

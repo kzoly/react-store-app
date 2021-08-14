@@ -17,7 +17,7 @@ function App() {
     newUserName,
     onUserNameChange,
     onAddUser,
-    userList,
+    items,
     search,
     onDelete
 
@@ -32,7 +32,7 @@ function App() {
         <button onClick={onAddUser}>Add</button>
         </div>
         
-        <UserList userList={userList} onDelete={ onDelete} search={search} />
+        <UserList userList={items} onDelete={ onDelete} search={search} />
 
     </div>
   );
