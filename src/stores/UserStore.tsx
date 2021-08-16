@@ -1,12 +1,14 @@
-import { action, makeObservable, observable } from "mobx";
+import { action, computed, makeObservable, observable } from "mobx";
 import { BaseStore } from "./BaseStore";
 import { User } from "../model/User";
+import { RootStore } from "./RootStore";
 
 
 export class UserStore extends BaseStore<User>{
   
   public endpoint: string = 'https://60fd9bcc1fa9e90017c70f18.mockapi.io/api/users';
 
+  public rootStore:RootStore;
 
 
   public searchTerm: string = '';
@@ -57,9 +59,12 @@ export class UserStore extends BaseStore<User>{
 
 
 
-  constructor() {
+  constructor(rootStore:RootStore) {
     super();
+    this.rootStore=rootStore;
+
     makeObservable(this, {
+      filteredItems:computed,
         searchTerm:observable,
         setSearchTerm:action.bound,
 
