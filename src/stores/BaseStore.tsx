@@ -54,22 +54,22 @@ export abstract class BaseStore<T extends { id?: string }>{
         }
     }
 
-    public async update(data: T): Promise<T> {
-        try {
-            const result = await fetch(`${this.endpoint}/${data.id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
-            });
-            const user = await result.json();
-            this.setItems([user, ...this.items]);
-            // this.setUserName('');
-            //this.setUserAvatar('');
-            return user
-        } catch (err) {
-            console.error(err);
-        }
-    }
+    // public async update(data: T): Promise<T> {
+    //     try {
+    //         const result = await fetch(`${this.endpoint}/${data.id}`, {
+    //             method: 'PUT',
+    //             headers: { 'Content-Type': 'application/json' },
+    //             body: JSON.stringify(data),
+    //         });
+    //         const user = await result.json();
+    //         this.setItems([user, ...this.items]);
+    //         // this.setUserName('');
+    //         //this.setUserAvatar('');
+    //         return user
+    //     } catch (err) {
+    //         console.error(err);
+    //     }
+    // }
 
     public onDelete = async (id: string): Promise<void> => {
         try {

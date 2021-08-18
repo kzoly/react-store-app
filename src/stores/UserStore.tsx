@@ -57,7 +57,14 @@ export class UserStore extends BaseStore<User>{
     this.create(newItem);
   }
 
-
+//   public onEdit = () => {
+//     const editedItem = {
+//         avatar: this.newAvatarUrl, 
+//         username: this.newUserName,
+       
+//     };        
+//     this.update(editedItem);
+// } 
 
   constructor(rootStore:RootStore) {
     super();

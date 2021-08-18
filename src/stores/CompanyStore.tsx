@@ -12,9 +12,13 @@ export class CompanyStore extends BaseStore<Company>{
   public setSearchTerm(searchTerm: string) { this.searchTerm = searchTerm; }
   //a fenti ket sor   
   //let [userNameSearch,setUserNameSearch] =useState('');
+  // public newCompanyTitle: string = '';
+  // public setNewCompanyTitle(newCompanyTitle: string) { this.newCompanyTitle = newCompanyTitle; }
 
+  // public newCompanyDescription: string = '';
+  // public setNewCompanyDescription(newCompanyDescription: string) { this.newCompanyDescription = newCompanyDescription; }
 
-  public get filteredItems(): Company[] {
+   public get filteredItems(): Company[] {
     let items = this.items;
     items = items.filter(company => company.name
       .toLowerCase()
@@ -26,12 +30,27 @@ export class CompanyStore extends BaseStore<Company>{
     //userNameSearch=event.target.value;
     this.setSearchTerm(event.target.value)
   };
+//   public onNewCompanyTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+//     this.setNewCompanyTitle(event.target.value);
+//   };
+
+//   public onNewCompanyDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+//     this.setNewCompanyDescription(event.target.value);
+//   };
+
+//   public onEdit = () => {
+//     const editItem = {
+//         name: this.newCompanyTitle, 
+//         description: this.newCompanyDescription,
+//     };        
+//     this.update(editItem);
+// }  
 
   constructor(rootStore: RootStore) {
     super();
     this.rootStore = rootStore;
     makeObservable(this, {
-      filteredItems:computed,
+      filteredItems: computed,
 
       searchTerm: observable,
       setSearchTerm: action.bound,

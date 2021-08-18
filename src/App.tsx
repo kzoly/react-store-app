@@ -23,9 +23,10 @@ function App() {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={() => setPage('user')}>     User   {userStore.filteredItems.length}   </Button>
-      <Button variant="outlined" color="primary" onClick={() => setPage('company')}>       Company    {userStore.filteredItems.length} </Button>
-      
+      <div className='header'>
+        <Button variant="outlined" color="primary" onClick={() => setPage('user')}>     User   {userStore.filteredItems.length}   </Button>
+        <Button variant="outlined" color="primary" onClick={() => setPage('company')}>       Company    {userStore.filteredItems.length} </Button>
+      </div>
       
       {page === 'user' && <UserCardList store={userStore} />   }
       {page === 'company' && <CompanyCardList store={companyStore} />}

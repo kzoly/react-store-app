@@ -7,9 +7,13 @@
     outline: none;
 }
 
-html, body {
+body {
     height: 100%;
-    background-color: #eee;
+    background-image: url("cool-background.png");    
+    max-width: 890px;
+    margin: 0 auto;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 .grid-container {
@@ -26,4 +30,23 @@ html, body {
 }
 .grid-item img{
     max-width: 160px;
+}
+
+.header{
+    margin: 20px;
+}
+
+.showHideTask{
+    float: right;
+    margin-top: 10px;
+    margin-right: 20%;
+}
+.showHideTask::after,.bodyHeader::after {
+	content: "";
+	clear: both;
+	display: table
+}
+
+input{
+    margin: 10px;
 }

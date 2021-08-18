@@ -13,7 +13,8 @@ export const CompanyCardList = observer((props: CompanyCardListProps) => {
         filteredItems:items,
         onDelete,
         searchTerm,
-        onSearch
+        onSearch,
+        //onEdit
     } = props.store;
 
     const getUser=(companyId:string):string=>{
@@ -33,6 +34,7 @@ export const CompanyCardList = observer((props: CompanyCardListProps) => {
                     <AvatarCard
                         item={{ id: item.id, title: item.name+getUser(item.id), description: item.description }}
                         onDelete={onDelete}
+                      //  onEdit={onEdit}
                         key={item.id}
                     />
                 )}

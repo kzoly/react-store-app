@@ -1,5 +1,5 @@
 import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Typography } from '@material-ui/core';
-import React from 'react'
+import React, { useState } from 'react'
 
 interface CardItem {
     id: string;
@@ -12,14 +12,21 @@ interface CardItem {
 interface AvatarCardProps {
     item: CardItem;
     onDelete: (id: string) => Promise<void>;
+    //onEdit: (id: string) => void; 
+    
 }
+
 
 export default function AvatarCard(props: AvatarCardProps) {
 
-    const { item, onDelete } = props;
-
+    const { item, onDelete
+        // ,onEdit
+     } = props;
+   // const [showEditItem, setShowEditItem] = useState(false);
+    
+    
     return (
-        <Card className='grid-item' raised style={{maxWidth:200}}>
+        <Card className='grid-item' raised style={{width:200}}>
             <CardActionArea>
                 {item.avatar && (
                     <CardMedia
@@ -49,6 +56,10 @@ export default function AvatarCard(props: AvatarCardProps) {
                 <Button variant="contained" color="secondary" onClick={() => onDelete(item.id)}>
                     Delete
                 </Button>
+                {/* <Button variant="contained" color="secondary" onClick={() => onEdit(item.id)}>
+                    Add
+                </Button>
+                 */}
             </CardActions>
         </Card>
 
