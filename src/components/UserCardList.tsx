@@ -19,10 +19,22 @@ export const UserCardList = observer((props: UserCardListProps) => {
         onAddUser,
         filteredItems: items,
         onDelete,
-        // onEdit
+        onEdit,
+
+        changeAvatarUrl,
+        onchangeAvatarUrl,
+
+        changeUserName,
+        onchangeUserName,
+
+        onChangeUser,
+
+        showUpdateItem,
+
 
     } = props.store;
     const [showAddTask, setShowAddTask] = useState(false);
+
     return (
         <div>
             <div className='bodyHeader'>
@@ -43,14 +55,21 @@ export const UserCardList = observer((props: UserCardListProps) => {
             <CardList
                 items={items}
                 itemRenderel={(item: User) => (
+
                     <AvatarCard
                         item={{ id: item.id, title: item.username, avatar: item.avatar }}
                         onDelete={onDelete}
-                        // onEdit={onEdit}
+                        onEdit={onEdit}
                         key={item.username}
                     />
+
                 )}
             />
+            {showUpdateItem && <div className="update">
+                <input placeholder='Avatar Url' value={changeAvatarUrl} onChange={onchangeAvatarUrl} />
+                <input placeholder='User Name' value={changeUserName} onChange={onchangeUserName} />
+                <button onClick={onChangeUser}>Edit</button>
+            </div>}
         </div>
 
     )

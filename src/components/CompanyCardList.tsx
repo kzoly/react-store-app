@@ -10,19 +10,19 @@ interface CompanyCardListProps {
 }
 export const CompanyCardList = observer((props: CompanyCardListProps) => {
     const {
-        filteredItems:items,
+        filteredItems: items,
         onDelete,
         searchTerm,
         onSearch,
-        //onEdit
+        onEdit
     } = props.store;
 
-    const getUser=(companyId:string):string=>{
-        const users=props.store.rootStore.userStore.items.filter(user=>user.companyId===companyId)
-        if(users.length>0)
-            return '('+users.length+')';
-            else
-                return '';
+    const getUser = (companyId: string): string => {
+        const users = props.store.rootStore.userStore.items.filter(user => user.companyId === companyId)
+        if (users.length > 0)
+            return '(' + users.length + ')';
+        else
+            return '';
     }
 
     return (
@@ -32,9 +32,9 @@ export const CompanyCardList = observer((props: CompanyCardListProps) => {
                 items={items}
                 itemRenderel={(item: Company) => (
                     <AvatarCard
-                        item={{ id: item.id, title: item.name+getUser(item.id), description: item.description }}
+                        item={{ id: item.id, title: item.name + getUser(item.id), description: item.description }}
                         onDelete={onDelete}
-                      //  onEdit={onEdit}
+                        onEdit={onEdit}
                         key={item.id}
                     />
                 )}

@@ -46,30 +46,28 @@ export abstract class BaseStore<T extends { id?: string }>{
             });
             const user = await result.json();
             this.setItems([user, ...this.items]);
-            // this.setUserName('');
-            //this.setUserAvatar('');
+
             return user
         } catch (err) {
             console.error(err);
         }
     }
 
-    // public async update(data: T): Promise<T> {
-    //     try {
-    //         const result = await fetch(`${this.endpoint}/${data.id}`, {
-    //             method: 'PUT',
-    //             headers: { 'Content-Type': 'application/json' },
-    //             body: JSON.stringify(data),
-    //         });
-    //         const user = await result.json();
-    //         this.setItems([user, ...this.items]);
-    //         // this.setUserName('');
-    //         //this.setUserAvatar('');
-    //         return user
-    //     } catch (err) {
-    //         console.error(err);
-    //     }
-    // }
+    public async update(data: T): Promise<T> {
+        try {
+            const result = await fetch(`${this.endpoint}/${data.id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            const user = await result.json();
+            this.setItems(this.items.filter(item => item.id !== data.id));
+            this.setItems([user, ...this.items]);
+            return user
+        } catch (err) {
+            console.error(err);
+        }
+    }
 
     public onDelete = async (id: string): Promise<void> => {
         try {
@@ -84,6 +82,7 @@ export abstract class BaseStore<T extends { id?: string }>{
             console.error(err);
         }
     }
+
     constructor() {
         makeObservable(this, {
             items: observable,

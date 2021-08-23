@@ -50,3 +50,16 @@ body {
 input{
     margin: 10px;
 }
+.update{
+    margin: auto;
+  width: 60%;
+  border: 3px solid #070c01;
+  z-index: 1;
+  text-align: center;
+  position: fixed;
+  margin-left: -215px;
+  margin-top: -75px;
+  top:50%;
+  left: 50%;
+  background: silver;
+}
